@@ -47,21 +47,28 @@ p {
 	color: #fff;
 }
 
-.first-section .text-content h2 {
+ .text-content h2 {
 	font-size: 44px;
 	text-transform: uppercase;
 	font-weight: 900;
 	letter-spacing: 1px;
 }
 
-.first-section .text-content .line-dec {
+.text-content h4{
+font-size: 22px;
+	text-transform: uppercase;
+	font-weight: 900;
+	letter-spacing: 1px;
+}
+
+ .text-content .line-dec {
 	width: 60px;
 	height: 3px;
 	background-color: #fff;
 	margin: 25px 0px 25px auto;
 }
 
-.first-section .text-content span {
+ .text-content span {
 	font-size: 18px;
 	font-weight: 300;
 	letter-spacing: 1px;
@@ -1085,3 +1092,23 @@ input:-ms-input-placeholder { color: #999999;}
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
+
+/* ======================
+----- INFO SECTION------
+=======================*/
+
+.info-section{
+border : 1px solid #e3e3e3;
+border-radius:4px;
+margin-left:16px;
+margin-right:16px;
+margin-bottom:16px;
+padding:10px;
+}
+
+.prod-image img{
+width:100px;
+height:100px;
+}
+
+

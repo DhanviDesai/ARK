@@ -11,7 +11,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$default_result = mysqli_query($db,$sql);
 	$row = mysqli_fetch_array($default_result,MYSQLI_ASSOC);
  	$default_count = mysqli_num_rows($default_result);
-echo $default_count;
 }
 }else{
 $default_sql = "SELECT * FROM ark.product";
@@ -53,7 +52,7 @@ $default_count=mysqli_num_rows($default_result);
                   <h2>Welcome To ARK</h2>
                   <div class="line-dec"></div>
                   <span><?php echo $login_session; ?></span>
-		  <span>sign out</span>
+		  <span><a href = "logout.php">Sign Out</a></span>
                 </div>
               </div>
             </div>
@@ -78,18 +77,28 @@ $default_count=mysqli_num_rows($default_result);
         </form>
         </section>
 
-	<section class="info-section">
 	<?php
 	for($x=0;$x<$default_count;$x++){
 	
 	$default_row = mysqli_fetch_array($default_result,MYSQLI_ASSOC);
-	  echo "<div>".$default_row['name']."</div>";
-	  echo '<div class="prod-category">'.$default_row["category"].'</div>';
-  	  echo '<div class="prod-price">'.$default_row["price"].'</div>';
-	  echo '<div class="prod-quantity">'.$default_row["quantity"].'</div>';
+
+	  echo '<section class="info-section">';
+	  echo '<div class="container">';
+	  echo '<div class="row">';
+	  echo '<div class="product col-md-6"><div class="prod-image"><img src="img/search.png"></div></div>';
+	  echo '<div class="col-md-6">';
+	  echo "<div class='text-content'><h4>".$default_row['name']."</h4></div>";
+	  echo '<div class="text-content"><span>Category:'.$default_row["category"].'</span></div>';
+  	  echo '<div class="text-content"><span>Price:'.$default_row["price"].'</span></div>';
+	  echo '<div class="text-content"><span>Quantity:'.$default_row["quantity"].'</span></div>';
+	  echo '</div>';
+	  echo '</div>';
+	  echo '</div>';
+	  echo '</section>';
 	}
 	?>
-	</section>
+<!--	<div class="product col-md-6">
+	<div class="prod-image"><img src="img/search.png"></div>
 
 <!--      <section class="second-section">
           <div class="container">

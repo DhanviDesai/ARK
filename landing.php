@@ -51,8 +51,9 @@ $default_count=mysqli_num_rows($default_result);
                 <div class="text-content">
                   <h2>Welcome To ARK</h2>
                   <div class="line-dec"></div>
+		  <span style="float:left;margin:8px;"><a href = "logout.php">Sign Out</a></span>
+		  <span style="float:left;margin:8px;"><a href = "upload.php">Upload</a></span>
                   <span><?php echo $login_session; ?></span>
-		  <span><a href = "logout.php">Sign Out</a></span>
                 </div>
               </div>
             </div>
@@ -85,7 +86,7 @@ $default_count=mysqli_num_rows($default_result);
 	  echo '<section class="info-section">';
 	  echo '<div class="container">';
 	  echo '<div class="row">';
-	  echo '<div class="product col-md-6"><div class="prod-image"><img src="img/search.png"></div></div>';
+	  echo '<div class="product col-md-6"><div class="prod-image"><img src="img/no.png"/></div></div>';
 	  echo '<div class="col-md-6">';
 	  echo "<div class='text-content'><h4>".$default_row['name']."</h4></div>";
 	  echo '<div class="text-content"><span>Category:'.$default_row["category"].'</span></div>';
@@ -97,8 +98,6 @@ $default_count=mysqli_num_rows($default_result);
 	  echo '</section>';
 	}
 	?>
-<!--	<div class="product col-md-6">
-	<div class="prod-image"><img src="img/search.png"></div>
 
 <!--      <section class="second-section">
           <div class="container">

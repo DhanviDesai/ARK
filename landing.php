@@ -9,7 +9,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$category = 1;
 	$sql = "SELECT * FROM ark.product WHERE category='$category'";
 	$default_result = mysqli_query($db,$sql);
-	$row = mysqli_fetch_array($default_result,MYSQLI_ASSOC);
  	$default_count = mysqli_num_rows($default_result);
 }
 }else{
@@ -51,8 +50,10 @@ $default_count=mysqli_num_rows($default_result);
                 <div class="text-content">
                   <h2>Welcome To ARK</h2>
                   <div class="line-dec"></div>
-		  <span style="float:left;margin:8px;"><a href = "logout.php">Sign Out</a></span>
-		  <span style="float:left;margin:8px;"><a href = "upload.php">Upload</a></span>
+		  <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "cart.php"><img src="img/cart.png" style="width:30px;height:30px;"/></a></span>
                   <span><?php echo $login_session; ?></span>
                 </div>
               </div>
@@ -79,24 +80,25 @@ $default_count=mysqli_num_rows($default_result);
         </section>
 
 	<?php
+  echo '<section class="info-section">';
+  echo '<div class="container">';
+  echo '<div class="row">';
 	for($x=0;$x<$default_count;$x++){
-	
+
 	$default_row = mysqli_fetch_array($default_result,MYSQLI_ASSOC);
 
-	  echo '<section class="info-section">';
-	  echo '<div class="container">';
-	  echo '<div class="row">';
-	  echo '<div class="product col-md-6"><div class="prod-image"><img src="img/no.png"/></div></div>';
+
 	  echo '<div class="col-md-6">';
 	  echo "<div class='text-content'><h4>".$default_row['name']."</h4></div>";
 	  echo '<div class="text-content"><span>Category:'.$default_row["category"].'</span></div>';
   	  echo '<div class="text-content"><span>Price:'.$default_row["price"].'</span></div>';
 	  echo '<div class="text-content"><span>Quantity:'.$default_row["quantity"].'</span></div>';
 	  echo '</div>';
-	  echo '</div>';
-	  echo '</div>';
-	  echo '</section>';
 	}
+
+  echo '</div>';
+  echo '</div>';
+  echo '</section>';
 	?>
 
 <!--      <section class="second-section">

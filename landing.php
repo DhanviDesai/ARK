@@ -50,10 +50,10 @@ $default_count=mysqli_num_rows($default_result);
                 <div class="text-content">
                   <h2>Welcome To ARK</h2>
                   <div class="line-dec"></div>
-		  <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;"/></a></span>
-		  <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;"/></a></span>
-		  <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;"/></a></span>
-		  <span style="float:left;margin:8px;"><a href = "cart.php"><img src="img/cart.png" style="width:30px;height:30px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "cart.php"><img src="img/cart.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
                   <span><?php echo $login_session; ?></span>
                 </div>
               </div>
@@ -61,7 +61,7 @@ $default_count=mysqli_num_rows($default_result);
           </div>
         </section>
 
-        <section class="search-section">
+<!--        <section class="search-section">
           <form method="post">
           <div class="container">
             <div class="row">
@@ -77,10 +77,51 @@ $default_count=mysqli_num_rows($default_result);
             </div>
           </div>
         </form>
-        </section>
+      </section>-->
+
+
+      <!--STUDY PORTFOLIO.HTML AND DO THE NECESSARY CHANGES TO FILTERING-->
+           <section class="second-section">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                      <div class="service-item">
+                        <div class="icon">
+                          <img src="img/notes.png" alt="">
+                        </div>
+                        <h4>Notes</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <div class="service-item">
+                        <div class="icon">
+                          <img src="img/books.png" alt="">
+                        </div>
+                        <h4>Books</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <div class="service-item">
+                        <div class="icon">
+                          <img src="img/electronics2.png" alt="">
+                        </div>
+                        <h4>Electronics</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <div class="service-item">
+                        <div class="icon">
+                          <img src="img/others2.png" alt="">
+                        </div>
+                        <h4>Others</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
 	<?php
-  echo '<section class="info-section">';
+  echo '<section >';
   echo '<div class="container">';
   echo '<div class="row">';
 	for($x=0;$x<$default_count;$x++){
@@ -88,10 +129,10 @@ $default_count=mysqli_num_rows($default_result);
 	$default_row = mysqli_fetch_array($default_result,MYSQLI_ASSOC);
 
 
-	  echo '<div class="col-md-6">';
+	  echo '<div class="col-md-5 info-section" onclick="goToDetailed()">';
 	  echo "<div class='text-content'><h4>".$default_row['name']."</h4></div>";
-	  echo '<div class="text-content"><span>Category:'.$default_row["category"].'</span></div>';
-  	  echo '<div class="text-content"><span>Price:'.$default_row["price"].'</span></div>';
+	  echo '<div class="text-content"><span>Category:'.$default_row["category_id"].'</span></div>';
+  	echo '<div class="text-content"><span>Price:'.$default_row["price"].'</span></div>';
 	  echo '<div class="text-content"><span>Quantity:'.$default_row["quantity"].'</span></div>';
 	  echo '</div>';
 	}

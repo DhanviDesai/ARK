@@ -10,3 +10,7 @@ jQuery(document).ready(function($) {
         });
 
 });
+
+function goToDetailed(){
+	
+}

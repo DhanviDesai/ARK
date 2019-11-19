@@ -65,13 +65,6 @@ $executeResult = mysqli_query($db,$productSql);
 						Upload Item
 					</span>
 					<span class="txt1 p-b-11">
-						Image
-					</span>
-					<div class=" validate-input m-b-36" data-validate = "Username is required">
-						<input type="file" name="fileToUpload" id="fileToUpload" >
-						<span class="focus-input100 colorChange"></span>
-					</div>
-					<span class="txt1 p-b-11">
 						Name
 					</span>
 					<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">

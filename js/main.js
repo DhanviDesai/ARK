@@ -11,6 +11,20 @@ jQuery(document).ready(function($) {
 
 });
 
-function goToDetailed(){
-	
-}
+// function goToDetailed(){
+// 	$('#detailedPane').css('visibility','visible');
+// 	var form =$('#nextForm');
+// 	var data = form.serialize();
+// 	$.post('./detailed.php',data,function(data){
+// 		var final = JSON.parse(data);
+// 		var name = final.name;
+// 		var category = final.category_name;
+// 		var price = final.price;
+// 		var quantity = final.quantity;
+// 		var fname = final.fname;
+// 		var lname = final.lname;
+// 		var phoneno = '+'+final.phoneno;
+// 		var email = final.email;
+// 		console.log(category);
+// 	});
+// }

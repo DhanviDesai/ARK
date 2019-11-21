@@ -4,7 +4,6 @@ $getUidSql = "SELECT uid FROM ark.user WHERE username = '$login_session'";
 $uidResult = mysqli_query($db,$getUidSql);
 $uidRow = mysqli_fetch_array($uidResult);
 $uid = $uidRow['uid'];
-//echo $uid;
 
 $getCategoriesSql = "SELECT * FROM ark.category";
 $categoryResult = mysqli_query($db,$getCategoriesSql);
@@ -19,10 +18,16 @@ $categoryRow = mysqli_fetch_array($categoryIdResult,MYSQLI_ASSOC);
 $catId = $categoryRow['category_id'];
 $price = mysqli_real_escape_string($db,$_POST['price']);
 $quantity = mysqli_real_escape_string($db,$_POST['quantity']);
-$productSql  = "INSERT INTO ark.product (name,category_id,price,quantity) values
-('$title','$catId','$price','$quantity')";
+$description = mysqli_real_escape_string($db,$_POST['description']);
+$productSql  = "INSERT INTO ark.product (uid,name,category_id,price,quantity,description) values
+('$uid','$title','$catId','$price','$quantity','$description')";
 $executeResult = mysqli_query($db,$productSql);
-
+$prod_idsql = "SELECT * FROM ark.product WHERE uid='$uid' AND name = '$title'";
+$prod_idresult = mysqli_query($db,$prod_idsql);
+$prod_idrow = mysqli_fetch_array($prod_idresult,MYSQLI_ASSOC);
+$prod_id = $prod_idrow['prod_id'];
+$accountsql = "INSERT INTO ark.account_util (uid,prod_id) VALUES ('$uid','$prod_id')";
+mysqli_query($db,$accountsql);
 }
 
 
@@ -56,6 +61,18 @@ $executeResult = mysqli_query($db,$productSql);
 <!--===============================================================================================-->
 </head>
 <body>
+	<div class="navBar">
+		<span class="txt1 p-b-11">
+			ARK
+		</span>
+		<div class="icons">
+			<span style="float:left;margin:8px;"><a href = "landing.php"><img src="img/home.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+			<span style="float:left;margin:8px;"><a href = "wishlist.php"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+			<span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+			<span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+			<span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		</div>
+	</div>
 
 	<div class="limiter">
 		<div class="container-login100">
@@ -96,6 +113,13 @@ $executeResult = mysqli_query($db,$productSql);
 					</span>
 					<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
 						<input class="input100" type="number" name="quantity" >
+						<span class="focus-input100 colorChange"></span>
+					</div>
+					<span class="txt1 p-b-11">
+						Description
+					</span>
+					<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
+						<textarea class="input100" name="description" rows="4" cols="40" ></textarea>
 						<span class="focus-input100 colorChange"></span>
 					</div>
 					<div class="container-login100-form-btn">

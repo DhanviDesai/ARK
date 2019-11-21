@@ -36,6 +36,7 @@ $default_count=mysqli_num_rows($default_result);
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/fontAwesome.css">
         <link rel="stylesheet" href="css/tooplate-style.css">
+        <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/util.css">
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -53,7 +54,7 @@ $default_count=mysqli_num_rows($default_result);
 		  <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
 		  <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
 		  <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
-		  <span style="float:left;margin:8px;"><a href = "cart.php"><img src="img/cart.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "wishlist.php"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
                   <span><?php echo $login_session; ?></span>
                 </div>
               </div>
@@ -84,6 +85,8 @@ $default_count=mysqli_num_rows($default_result);
            <section class="second-section">
                 <div class="container">
                   <div class="row">
+                    <ul class="project-filter">
+                      <li class="filter" data-filter="Notes">
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
@@ -92,6 +95,8 @@ $default_count=mysqli_num_rows($default_result);
                         <h4>Notes</h4>
                         </div>
                     </div>
+                  </li>
+                  <li class="filter" data-filter="Books">
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
@@ -100,6 +105,8 @@ $default_count=mysqli_num_rows($default_result);
                         <h4>Books</h4>
                       </div>
                     </div>
+                  </li>
+                  <li class="filter" data-filter="Electronics">
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
@@ -108,6 +115,8 @@ $default_count=mysqli_num_rows($default_result);
                         <h4>Electronics</h4>
                       </div>
                     </div>
+                  </li>
+                  <li class="filter" data-filter="Others">
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
@@ -116,22 +125,30 @@ $default_count=mysqli_num_rows($default_result);
                         <h4>Others</h4>
                       </div>
                     </div>
+                  </li>
+                  </ul>
                   </div>
                 </div>
               </section>
 
 	<?php
   echo '<section >';
+  echo '<form id="nextForm">';
   echo '<div class="container">';
   echo '<div class="row">';
 	for($x=0;$x<$default_count;$x++){
 
 	$default_row = mysqli_fetch_array($default_result,MYSQLI_ASSOC);
+  $categoryid = $default_row['category_id'];
+  $catsql = "SELECT * FROM ark.category WHERE category_id = '$categoryid'";
+  $catresult = mysqli_query($db,$catsql);
+  $catrow = mysqli_fetch_array($catresult,MYSQLI_ASSOC);
 
 
 	  echo '<div class="col-md-5 info-section" onclick="goToDetailed()">';
-	  echo "<div class='text-content'><h4>".$default_row['name']."</h4></div>";
-	  echo '<div class="text-content"><span>Category:'.$default_row["category_id"].'</span></div>';
+    echo '<a style="text-decoration:none;"href=./detailed.php?prod_id='.$default_row['prod_id'].' />';
+	  echo "<div class='text-content Books'><h4>".$default_row['name']."</h4></div>";
+	  echo '<div class="text-content"><span>Category:'.$catrow["category_name"].'</span></div>';
   	echo '<div class="text-content"><span>Price:'.$default_row["price"].'</span></div>';
 	  echo '<div class="text-content"><span>Quantity:'.$default_row["quantity"].'</span></div>';
 	  echo '</div>';
@@ -139,8 +156,13 @@ $default_count=mysqli_num_rows($default_result);
 
   echo '</div>';
   echo '</div>';
+  echo '</form>';
   echo '</section>';
 	?>
+
+  <div id="detailedPane" style="visibility:hidden;position:absolute;top:50%;left:25%;width:50%;height:75%;z-index:1;background-color:#2c3440">
+
+</div>
 
 <!--      <section class="second-section">
           <div class="container">

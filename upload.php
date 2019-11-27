@@ -69,7 +69,7 @@ mysqli_query($db,$accountsql);
 			<span style="float:left;margin:8px;"><a href = "landing.php"><img src="img/home.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
 			<span style="float:left;margin:8px;"><a href = "wishlist.php"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
 			<span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
-			<span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		<!--	<span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>-->
 			<span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
 		</div>
 	</div>

@@ -206,6 +206,10 @@ iframe {
   background-color: #ebebeb;
 }
 
+.wishlist{
+  margin-bottom:16px;
+}
+
 .container-login1001 {
   width: 100%;
   min-height: 90vh;

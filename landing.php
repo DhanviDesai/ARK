@@ -1,21 +1,28 @@
 <?php
 include('session.php');
 
+$user = $login_session;
+$usersql = "SELECT * FROM ark.user WHERE username = '$user'";
+$user_result = mysqli_query($db,$usersql);
+$user_row = mysqli_fetch_array($user_result,MYSQLI_ASSOC);
+$userid = $user_row['uid'];
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $search = $_POST['search'];
-  if($search == 'Notes' || 'notes'){
-	$category = 1;
-	$sql = "SELECT * FROM ark.product WHERE category='$category'";
+if(isset($_POST['clicked'])){
+  $value = $_POST['clicked'];
+	$sql = "SELECT * FROM ark.product WHERE category_id='$value'";
 	$default_result = mysqli_query($db,$sql);
  	$default_count = mysqli_num_rows($default_result);
 }
-}else{
+}
+
+else{
 $default_sql = "SELECT * FROM ark.product";
 $default_result = mysqli_query($db,$default_sql);
 $default_count=mysqli_num_rows($default_result);
 }
+
 
 
 ?>
@@ -52,9 +59,9 @@ $default_count=mysqli_num_rows($default_result);
                   <h2>Welcome To ARK</h2>
                   <div class="line-dec"></div>
 		  <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
-		  <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "account.php?uid=<?php echo $userid?>"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
 		  <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
-		  <span style="float:left;margin:8px;"><a href = "wishlist.php"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+		  <span style="float:left;margin:8px;"><a href = "wishlist.php?uid=<?php echo $userid?>"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
                   <span><?php echo $login_session; ?></span>
                 </div>
               </div>
@@ -62,27 +69,8 @@ $default_count=mysqli_num_rows($default_result);
           </div>
         </section>
 
-<!--        <section class="search-section">
-          <form method="post">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-11 col-sm-12">
-                <div class="wrap-input100 validate-input m-b-36">
-                  <input class="input100" type="text" name="search" placeholder="Search for Categories" id="searchInput">
-                  <span class="focus-input100"></span>
-                </div>
-              </div>
-              <div class="col-md-1 magnify col-sm-12">
-                <input class="search_button"  type="image" src="img/search.png">
-              </div>
-            </div>
-          </div>
-        </form>
-      </section>-->
-
-
-      <!--STUDY PORTFOLIO.HTML AND DO THE NECESSARY CHANGES TO FILTERING-->
            <section class="second-section">
+             <form method="post">
                 <div class="container">
                   <div class="row">
                     <ul class="project-filter">
@@ -90,7 +78,9 @@ $default_count=mysqli_num_rows($default_result);
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
+                          <button name="clicked" value="1">
                           <img src="img/notes.png" alt="">
+                        </button>
                         </div>
                         <h4>Notes</h4>
                         </div>
@@ -100,7 +90,9 @@ $default_count=mysqli_num_rows($default_result);
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
+                          <button name="clicked" value="2">
                           <img src="img/books.png" alt="">
+                          </button>
                         </div>
                         <h4>Books</h4>
                       </div>
@@ -110,7 +102,9 @@ $default_count=mysqli_num_rows($default_result);
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
+                          <button name="clicked" value="3">
                           <img src="img/electronics2.png" alt="">
+                          </button>
                         </div>
                         <h4>Electronics</h4>
                       </div>
@@ -120,7 +114,9 @@ $default_count=mysqli_num_rows($default_result);
                     <div class="col-md-3 col-sm-6">
                       <div class="service-item">
                         <div class="icon">
+                          <button name="clicked" value="4">
                           <img src="img/others2.png" alt="">
+                          </button>
                         </div>
                         <h4>Others</h4>
                       </div>
@@ -129,6 +125,7 @@ $default_count=mysqli_num_rows($default_result);
                   </ul>
                   </div>
                 </div>
+              </form>
               </section>
 
 	<?php
@@ -159,194 +156,6 @@ $default_count=mysqli_num_rows($default_result);
   echo '</form>';
   echo '</section>';
 	?>
-
-  <div id="detailedPane" style="visibility:hidden;position:absolute;top:50%;left:25%;width:50%;height:75%;z-index:1;background-color:#2c3440">
-
-</div>
-
-<!--      <section class="second-section">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <div class="icon">
-                    <img src="img/first-icon.png" alt="">
-                  </div>
-                  <h4>Quick Editing</h4>
-                  <p>Aliquam ex velit, viverra eu tristique vel, rhoncus nec ligula. In vel massa sed dolor pharetra interdum vitae posuere.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <div class="icon">
-                    <img src="img/second-icon.png" alt="">
-                  </div>
-                  <h4>Responsive Layout</h4>
-                  <p>Sed pulvinar ipsum id leo volutpat, in convallis lectus molestie. Aliquam nisi sapien, faucibus eu consequat id, egestas vitae augue.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <div class="icon">
-                    <img src="img/third-icon.png" alt="">
-                  </div>
-                  <h4>Quick Support</h4>
-                  <p>Aliquam ex velit, viverra eu tristique vel, rhoncus nec ligula. In vel massa sed dolor pharetra interdum vitae posuere.</p>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <div class="icon">
-                    <img src="img/fourth-icon.png" alt="">
-                  </div>
-                  <h4>Voice Chat</h4>
-                  <p>Sed pulvinar ipsum id leo volutpat, in convallis lectus molestie. Aliquam nisi sapien, faucibus eu consequat id, egestas vitae augue.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-      <!--  <section class="third-section">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="left-image col-md-4">
-                  <img src="img/left-image.png" alt="">
-                </div>
-                <div class="right-text col-md-8">
-                  <h4><em>Integer suscipit</em><br>Nullam volutpat mi vel</h4>
-                  <p>Nulla tempor lectus at mauris bibendum porttitor. Aenean ultrices orci id nibh sodales, vel suscipit arcu vulputate. Pellentesque hendrerit diam quis leo dignissim, lacinia interdum nunc volutpat. Morbi lobortis mattis lectus, a dictum augue lobortis non. Fusce eu nulla sagittis, scelerisque eros fringilla, commodo dolor.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="fourth-section">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="portfolio-item first-item">
-                  <div class="image">
-                    <a href="img/01-big-item.jpg" data-lightbox="image-1"><img src="img/first-item.jpg"></a>
-                  </div>
-                  <div class="text">
-                    <span>Nature</span>
-                    <h4>Robotic Light</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="portfolio-item second-item">
-                  <div class="image">
-                    <a href="img/02-big-item.jpg" data-lightbox="image-1"><img src="img/second-item.jpg"></a>
-                  </div>
-                  <div class="text">
-                    <span>Architect</span>
-                    <h4>Rock Solid</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="portfolio-item third-item">
-                  <div class="image">
-                    <a href="img/03-big-item.jpg" data-lightbox="image-1"><img src="img/third-item.jpg"></a>
-                  </div>
-                  <div class="text">
-                    <span>Focus</span>
-                    <h4>Clean Design</h4>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="send-to-portfolio">
-                  <span>Do you want to see more?</span>
-                  <div class="primary-button">
-                    <a href="portfolio-page.html">Visit gallery</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="fivth-section">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="left-text col-md-8">
-                  <h4><em>Aliquam efficitur</em><br>augue et libero vulputate feugiat</h4>
-                  <p>Mauris eget orci porta, aliquam neque sit amet, porttitor dui. Donec efficitur vehicula justo quis varius. Vivamus pharetra lorem eget turpis ornare tempus. Vivamus ac sodales lectus. Morbi rhoncus feugiat neque ultrices rhoncus. Maecenas ultrices, nisl pellentesque hendrerit dignissim, ante purus hendrerit urna, eu tristique est massa quis risus.</p>
-                </div>
-                <div class="right-image col-md-4">
-                  <img src="img/right-image.png" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="sixth-section">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row">
-                  <form id="contact" action="" method="post">
-                    <div class="col-md-6">
-                      <fieldset>
-                        <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required>
-                      </fieldset>
-                    </div>
-                    <div class="col-md-6">
-                      <fieldset>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required>
-                      </fieldset>
-                    </div>
-                    <div class="col-md-12">
-                      <fieldset>
-                        <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required></textarea>
-                      </fieldset>
-                    </div>
-                    <div class="col-md-12">
-                      <fieldset>
-                        <button type="submit" id="form-submit" class="btn">Send Message</button>
-                      </fieldset>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="col-md-5">
-                <div class="right-info">
-                  <ul>
-                    <li><a href="#"><i class="fa fa-envelope"></i>hello@company.com</a></li>
-                    <li><a href="#"><i class="fa fa-phone"></i>050 060 0780 / 050 060 0110</a></li>
-                    <li><a href="#"><i class="fa fa-map-marker"></i>1186 New Street, ST 10990</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <footer>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <ul>
-                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                  <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                  <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                </ul>
-                <p>Copyright &copy; 2017 Company Name
-
-                        | Design: Tooplate</p>
-              </div>
-            </div>
-          </div>
-        </footer>-->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>

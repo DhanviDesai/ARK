@@ -1,5 +1,10 @@
 <?php
-include('config.php');
+include('session.php');
+$user = $login_session;
+$usersql = "SELECT * FROM ark.user WHERE username = '$user'";
+$user_result = mysqli_query($db,$usersql);
+$user_row = mysqli_fetch_array($user_result,MYSQLI_ASSOC);
+$userid = $user_row['uid'];
 if(isset($_GET['prod_id'])){
   $id = $_GET['prod_id'];
   $sql =  "SELECT * FROM ark.product WHERE prod_id='$id'";
@@ -27,7 +32,8 @@ if(isset($_GET['prod_id'])){
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  $wishlistsql = "INSERT INTO ark.wishlist_util (uid,prod_id) VALUES ('$uid','$id')";
+  $usersql = "SELECT * FROM ark.user ";
+  $wishlistsql = "INSERT INTO ark.wishlist_util (uid,prod_id) VALUES ('$userid','$id')";
   mysqli_query($db,$wishlistsql);
      header("Location: landing.php");
 }
@@ -67,7 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </span>
     <div class="icons">
       <span style="float:left;margin:8px;"><a href = "landing.php"><img src="img/home.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
-      <span style="float:left;margin:8px;"><a href = "wishlist.php"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+      <span style="float:left;margin:8px;"><a href = "wishlist.php?uid=<?php echo $userid?>"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
       <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
       <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
       <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>

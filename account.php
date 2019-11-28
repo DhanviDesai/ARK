@@ -1,5 +1,6 @@
 <?php
 include('config.php');
+$id = 0;
 if(isset($_GET['uid'])){
 
 $id = $_GET['uid'];
@@ -8,13 +9,18 @@ $wishlist_result = mysqli_query($db,$wishlistsql);
 $wishlist_count = mysqli_num_rows($wishlist_result);
 }
 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+$po = mysqli_real_escape_string($db,$_POST['default_prod_id']);
+ echo $po;
+}
+
 ?>
 <html class="no-js" lang="">
    <head>
        <meta charset="utf-8">
        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-       <title>Wishlist</title>
+       <title>Account</title>
        <meta charset="UTF-8">
      	<meta name="viewport" content="width=device-width, initial-scale=1">
      <!--===============================================================================================-->
@@ -51,8 +57,8 @@ $wishlist_count = mysqli_num_rows($wishlist_result);
        </span>
        <div class="icons">
          <span style="float:left;margin:8px;"><a href = "landing.php"><img src="img/home.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
-        <!-- <span style="float:left;margin:8px;"><a href = "wishlist.php"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>-->
-         <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+        <span style="float:left;margin:8px;"><a href = "wishlist.php?uid=<?php echo $id?>"><img src="img/wishlist.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
+      <!--   <span style="float:left;margin:8px;"><a href = "account.php"><img src="img/account.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>-->
          <span style="float:left;margin:8px;"><a href = "upload.php"><img src="img/upload.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
          <span style="float:left;margin:8px;"><a href = "logout.php"><img src="img/exit.png" style="width:30px;height:30px;margin-left:8px;"/></a></span>
        </div>
@@ -60,7 +66,7 @@ $wishlist_count = mysqli_num_rows($wishlist_result);
 
      <?php
       echo "<section>";
-      echo '<form id="nextForm">';
+      echo '<form method="post">';
       echo '<div class="container">';
       echo '<div class="row">';
      for($x=0;$x<$wishlist_count;$x++){
@@ -75,13 +81,15 @@ $wishlist_count = mysqli_num_rows($wishlist_result);
       $catresult = mysqli_query($db,$catsql);
       $catrow = mysqli_fetch_array($catresult,MYSQLI_ASSOC);
 
-
+        $pr = $default_row['prod_id'];
        echo '<div class="col-md-5 info-section" onclick="goToDetailed()">';
+       echo '<input type="hidden" name="default_prod_id" value="'.$pr.'" />';
        echo '<a style="text-decoration:none;"href=./detailed.php?prod_id='.$default_row['prod_id'].' />';
        echo "<div class='text-content Books'><h4>".$default_row['name']."</h4></div>";
        echo '<div class="text-content"><span>Category:'.$catrow["category_name"].'</span></div>';
        echo '<div class="text-content"><span>Price:'.$default_row["price"].'</span></div>';
        echo '<div class="text-content"><span>Quantity:'.$default_row["quantity"].'</span></div>';
+       echo '<div style="float:right;"><a href="./deleteItems.php?prod_id='.$pr.'&uid='.$id.'"><img style="width:30px;height:30px;" src="img/close.png"/></a></div>';
        echo '</div>';
      }
 

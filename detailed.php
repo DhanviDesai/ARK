@@ -80,8 +80,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
   </div>
 
+
 	<div class="limiter">
 		<div class="container-login100">
+      <a href="prevPage.php?prod_id=<?php echo $id?>"><img src="img/prevPage.png" style="visibility:<?php include('visibilityPrev.php') ?>;margin-bottom:16px;margin-right:150px;"/></a>
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 				<form class="login100-form validate-form flex-sb flex-w" method="post">
 					<span class="login100-form-title p-b-32">
@@ -118,6 +120,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 				</form>
 			</div>
+        <a href="nextPage.php?prod_id=<?php echo $id?>"><img src="img/nextPage.png" style="visibility:<?php include('visibilityNext.php') ?>;margin-left:150px;margin-top:16px;"/></a>
 		</div>
 	</div>
 

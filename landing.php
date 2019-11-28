@@ -6,24 +6,28 @@ $usersql = "SELECT * FROM ark.user WHERE username = '$user'";
 $user_result = mysqli_query($db,$usersql);
 $user_row = mysqli_fetch_array($user_result,MYSQLI_ASSOC);
 $userid = $user_row['uid'];
+$flag = 'hidden';
+$default_sql = "SELECT * FROM ark.product";
+$default_result = mysqli_query($db,$default_sql);
+$default_count=mysqli_num_rows($default_result);
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if(isset($_POST['clicked'])){
+  $flag = 'visible';
   $value = $_POST['clicked'];
 	$sql = "SELECT * FROM ark.product WHERE category_id='$value'";
 	$default_result = mysqli_query($db,$sql);
  	$default_count = mysqli_num_rows($default_result);
 }
-}
-
-else{
+else if(isset($_POST['clear'])){
+$flag = 'hidden';
+header("Refresh:0");
 $default_sql = "SELECT * FROM ark.product";
 $default_result = mysqli_query($db,$default_sql);
 $default_count=mysqli_num_rows($default_result);
 }
-
-
+}
 
 ?>
 
@@ -68,6 +72,19 @@ $default_count=mysqli_num_rows($default_result);
             </div>
           </div>
         </section>
+
+        <div class="container" >
+          <form method="post" name="clear">
+          <div class="row">
+            <div class="col-md-12">
+              <button>
+              <img src="img/close.png" style="width:30px;height:30px;visibility:<?php echo $flag?>;margin-top:10px;">
+            </button>
+            </div>
+          </div>
+        </form>
+        </div>
+
 
            <section class="second-section">
              <form method="post">
